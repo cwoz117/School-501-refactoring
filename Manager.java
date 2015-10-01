@@ -28,9 +28,11 @@ import java.util.Scanner;
 public class Manager{
 
     public static void main(String[] args){
-    	Fighter defender = new Fighter(33.33, 33.33, 33.33);
-    	Scanner in = new Scanner(System.in);
 
+    	Scanner in = new Scanner(System.in);
+    	Fighter attacker = new Fighter(in);
+    	Fighter defender = new Fighter(33.33, 33.33, 33.33);
+    	
     	System.out.println("Please enter the number of rounds for this fight: ");
     	int rounds = in.nextInt();
 
@@ -38,21 +40,11 @@ public class Manager{
     		rounds = 10;
     	}
 
-    	System.out.println("Please enter the ratio of High Attacks: ");
-    	double high = in.nextDouble();
-    	System.out.println("Please enter the ratio of Medium Attacks: ");
-    	double medium = in.nextDouble();
-    	System.out.println("Please enter the ratio of Low Attacks: ");
-    	double low = in.nextDouble();
-	
-    	Fighter attacker = new Fighter(high,medium,low);
-
-
     	for(int i = 0; i<rounds; i++){
     		int attack;
     		int defend;
-    		attack = attacker.attack();
-    		defend = defender.defend();
+    		attack = attacker.action("Attack");
+    		defend = defender.action("Defend");
     		defender.analyze(attack);
 
     		if (attack == defend){

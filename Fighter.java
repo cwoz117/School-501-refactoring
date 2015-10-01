@@ -13,6 +13,7 @@ List of methods.
 
 
 import java.util.Random;
+import java.util.Scanner;
 
 public class Fighter{
 
@@ -25,15 +26,6 @@ public class Fighter{
     private int[] counters;
     private Random numberGenerator;
     
-    public Fighter(){ //Default Constructor sets all ratios to 33%
-    	counters = new int[4];
-    	attackRatio = new double[3];
-    	attackRatio[HIGH] = 33.33;
-    	attackRatio[MEDIUM] = 33.33;
-    	attackRatio[LOW] = 33.33;
-    	numberGenerator = new Random();
-    }
-    
     public Fighter(double ratioOfHighAttack, double ratioOfMediumAttack, double ratioOfLowAttack){
     	counters = new int[4];
     	attackRatio = new double[3];
@@ -42,35 +34,33 @@ public class Fighter{
     	attackRatio[LOW] = ratioOfLowAttack;
     	numberGenerator = new Random();
     }
+    public Fighter(Scanner in){
+    	counters = new int[4];
+    	attackRatio = new double[3];
+    	numberGenerator = new Random();
+    	
+    	System.out.println("Please enter the ratio of High Attacks: ");
+    	attackRatio[HIGH]= in.nextDouble();
+    	System.out.println("Please enter the ratio of Medium Attacks: ");
+    	attackRatio[MEDIUM] = in.nextDouble();
+    	System.out.println("Please enter the ratio of Low Attacks: ");
+    	attackRatio[LOW]= in.nextDouble();
+    }
 
 
-    public int attack(){//Based off of its ratios, select a 'random' attack
+    public int action(String typeOfMove){//Based off of its ratios, select a 'random' attack
     	int determinedAttack = numberGenerator.nextInt(100);
     	if (determinedAttack < attackRatio[HIGH]){
-    		System.out.println("Attacked HIGH");
+    		System.out.println(typeOfMove + "ed HIGH");
     		counters[HIGH] += 1;
     		return HIGH;
     	} else if (determinedAttack <= (attackRatio[HIGH]+attackRatio[MEDIUM])){
-    		System.out.println("Attacked MEDIUM");
+    		System.out.println(typeOfMove + "ed MEDIUM");
     		counters[MEDIUM] += 1;
     		return MEDIUM;
     	} else{
-    		System.out.println("Attacked LOW");
+    		System.out.println(typeOfMove + "ed LOW");
     		counters[LOW] += 1;
-    		return LOW;
-    	}
-    }
-    
-    public int defend(){ //Generate a defense, based off current ratios.
-    	int defend = numberGenerator.nextInt(100);
-    	if ( defend <= attackRatio[HIGH] ) {
-    		System.out.println("BLOCKED HIGH");
-    		return HIGH;
-    	} else if ( defend <= (attackRatio[0] + attackRatio[1]) ) {
-    		System.out.println("BLOCKED MEDIUM");
-    		return MEDIUM;
-    	} else{
-    		System.out.println("BLOCKED LOW");
     		return LOW;
     	}
     }
@@ -94,6 +84,7 @@ public class Fighter{
     public void blocked(){
     	counters[BLOCK] += 1;
     }
+   
    
     public void showBlocked(int rounds){
     	double dblBlockPercent = ((double)counters[BLOCK]/(double)rounds)* 100;

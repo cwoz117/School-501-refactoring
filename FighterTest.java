@@ -10,12 +10,12 @@ public class FighterTest {
 	
 	
 	@Test
-	public void testAttack(){
+	public void testAction(){
 		Assert.assertEquals(0, 0);
 	}
 
 	@Test
-	public void testShowStats(){
+	public void testOutput(){
 		
 	}
 
