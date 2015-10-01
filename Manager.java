@@ -28,43 +28,43 @@ import java.util.Scanner;
 public class Manager{
 
     public static void main(String[] args){
-    	Defender d = new Defender(33.33, 33.33, 33.33);
+    	Defender defender = new Defender(33.33, 33.33, 33.33);
     	Scanner in = new Scanner(System.in);
 
     	System.out.println("Please enter the number of rounds for this fight: ");
-    	int intRounds = in.nextInt();
+    	int rounds = in.nextInt();
 
-    	if (intRounds < 1 || intRounds > 100){
-    		intRounds = 10;
+    	if (rounds < 1 || rounds > 100){
+    		rounds = 10;
     	}
 
     	System.out.println("Please enter the ratio of High Attacks: ");
-    	double h = in.nextDouble();
+    	double high = in.nextDouble();
     	System.out.println("Please enter the ratio of Medium Attacks: ");
-    	double m = in.nextDouble();
+    	double medium = in.nextDouble();
     	System.out.println("Please enter the ratio of Low Attacks: ");
-    	double l = in.nextDouble();
+    	double low = in.nextDouble();
 	
-    	Attacker a = new Attacker(h,m,l);
+    	Fighter attacker = new Fighter(high,medium,low);
 
 
-    	for(int i = 0; i<intRounds; i++){
-    		int attk;
-    		int dfnd;
-    		attk = a.makeAttack();
-    		dfnd = d.makeDefence();
-    		d.analyze(attk);
+    	for(int i = 0; i<rounds; i++){
+    		int attack;
+    		int defend;
+    		attack = attacker.attack();
+    		defend = defender.defend();
+    		defender.analyze(attack);
 
-    		if (attk == dfnd){
+    		if (attack == defend){
     			System.out.println("\t Attack Blocked!");
-    			d.blocked();
+    			defender.blocked();
     		} else{
     			System.out.println("\t Attack Hit!");
     		}
     		System.out.println();
     	}
-    	a.showStats(intRounds);
-    	d.showBlocked(intRounds);
+    	attacker.showStats(rounds);
+    	defender.showBlocked(rounds);
     	in.close();
     }
 }
