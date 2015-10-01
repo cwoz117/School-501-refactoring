@@ -47,7 +47,6 @@ public class Fighter{
     	attackRatio[LOW]= in.nextDouble();
     }
 
-
     public int action(String typeOfMove){//Based off of its ratios, select a 'random' attack
     	int determinedAttack = numberGenerator.nextInt(100);
     	if (determinedAttack < attackRatio[HIGH]){
@@ -64,7 +63,6 @@ public class Fighter{
     		return LOW;
     	}
     }
-
     public void analyze(int i){//Determine opponents ratio.
     	if (i == HIGH && attackRatio[HIGH] <= 100 ) {
     		attackRatio[HIGH] += 2;
@@ -80,18 +78,13 @@ public class Fighter{
     		attackRatio[LOW] += 2;
         }
     }
-
     public void blocked(){
     	counters[BLOCK] += 1;
     }
-   
-   
     public void showBlocked(int rounds){
     	double dblBlockPercent = ((double)counters[BLOCK]/(double)rounds)* 100;
     	System.out.printf("Blocked Attacks: %3.1f%% \n", dblBlockPercent);
     }
-    
-    
     public void showStats(int r){//Display the log of attacks that were made.
     	double h = ((double)counters[HIGH] /(double)r)*100;
     	double m = ((double)counters[MEDIUM] /(double)r)* 100;

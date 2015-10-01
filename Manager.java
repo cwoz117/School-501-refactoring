@@ -24,7 +24,6 @@ Version 2. "Hemera"
 
 import java.util.Scanner;
 
-
 public class Manager{
 
     public static void main(String[] args){
@@ -32,31 +31,12 @@ public class Manager{
     	Scanner in = new Scanner(System.in);
     	Fighter attacker = new Fighter(in);
     	Fighter defender = new Fighter(33.33, 33.33, 33.33);
+    	Simulator sim = new Simulator(attacker, defender);
     	
-    	System.out.println("Please enter the number of rounds for this fight: ");
-    	int rounds = in.nextInt();
-
-    	if (rounds < 1 || rounds > 100){
-    		rounds = 10;
-    	}
-
-    	for(int i = 0; i<rounds; i++){
-    		int attack;
-    		int defend;
-    		attack = attacker.action("Attack");
-    		defend = defender.action("Defend");
-    		defender.analyze(attack);
-
-    		if (attack == defend){
-    			System.out.println("\t Attack Blocked!");
-    			defender.blocked();
-    		} else{
-    			System.out.println("\t Attack Hit!");
-    		}
-    		System.out.println();
-    	}
-    	attacker.showStats(rounds);
-    	defender.showBlocked(rounds);
+    	sim.determineRounds(in);
+    	sim.runSimulation();
+    	sim.stats();
+    	
     	in.close();
     }
 }
