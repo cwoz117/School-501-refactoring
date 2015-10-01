@@ -28,7 +28,7 @@ import java.util.Scanner;
 public class Manager{
 
     public static void main(String[] args){
-    	Defender defender = new Defender(33.33, 33.33, 33.33);
+    	Fighter defender = new Fighter(33.33, 33.33, 33.33);
     	Scanner in = new Scanner(System.in);
 
     	System.out.println("Please enter the number of rounds for this fight: ");
