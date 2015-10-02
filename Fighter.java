@@ -12,8 +12,12 @@ List of methods.
  */
 
 
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+
+import exceptions.AttackerInputException;
+import exceptions.AttackerRatioException;
 
 public class Fighter{
 
@@ -26,25 +30,41 @@ public class Fighter{
     private int[] counters;
     private Random numberGenerator;
     
-    public Fighter(double ratioOfHighAttack, double ratioOfMediumAttack, double ratioOfLowAttack){
+    public Fighter(double ratioOfHighAttack, double ratioOfMediumAttack, double ratioOfLowAttack) throws AttackerRatioException{
     	counters = new int[4];
     	attackRatio = new double[3];
     	attackRatio[HIGH] = ratioOfHighAttack;
     	attackRatio[MEDIUM] = ratioOfMediumAttack;
     	attackRatio[LOW] = ratioOfLowAttack;
     	numberGenerator = new Random();
+    	
+    	double totalRatio = attackRatio[MEDIUM] + attackRatio[MEDIUM] + attackRatio[LOW];
+    	if (totalRatio > (double)100){
+    		throw new AttackerRatioException("Your ratios are greater than 100%");
+    	}
     }
-    public Fighter(Scanner in){
+    public Fighter(Scanner in) throws AttackerRatioException, AttackerInputException{
     	counters = new int[4];
     	attackRatio = new double[3];
     	numberGenerator = new Random();
+
+    	try{
+    		System.out.println("Please enter the ratio of High Attacks: ");
+    		attackRatio[HIGH]= in.nextDouble();
     	
-    	System.out.println("Please enter the ratio of High Attacks: ");
-    	attackRatio[HIGH]= in.nextDouble();
-    	System.out.println("Please enter the ratio of Medium Attacks: ");
-    	attackRatio[MEDIUM] = in.nextDouble();
-    	System.out.println("Please enter the ratio of Low Attacks: ");
-    	attackRatio[LOW]= in.nextDouble();
+    		System.out.println("Please enter the ratio of Medium Attacks: ");
+    		attackRatio[MEDIUM] = in.nextDouble();
+
+    		System.out.println("Please enter the ratio of Low Attacks: ");
+    		attackRatio[LOW]= in.nextDouble();
+    	} catch (InputMismatchException e){
+    		throw new AttackerInputException("You must enter a valid number");
+    	}
+    	
+    	double totalRatio = attackRatio[HIGH] + attackRatio[MEDIUM] + attackRatio[LOW];
+    	if (totalRatio > 100.00){
+    		throw new AttackerRatioException("Your ratios are greater than 100%");
+    	}
     }
 
     public int action(String typeOfMove){//Based off of its ratios, select a 'random' attack
