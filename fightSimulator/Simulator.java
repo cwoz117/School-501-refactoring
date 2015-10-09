@@ -18,7 +18,7 @@ public class Simulator {
 	}
 	public void determineRounds(Scanner in){
 		if(in == null){
-			throw new IllegalArgumentException("Scanner isnt created");
+			throw new NullPointerException("Scanner isnt created");
 		}
 		System.out.println("Please enter the number of rounds for this fight: ");
 		while(!in.hasNextInt()){

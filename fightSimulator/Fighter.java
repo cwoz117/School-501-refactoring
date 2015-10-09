@@ -42,7 +42,7 @@ public class Fighter{
     	numberGenerator = new Random();
     }
     public Fighter(Scanner in){
-    	if(in == null) throw new IllegalArgumentException("Scanner is not initialized");
+    	if(in == null) throw new NullPointerException("Scanner is not initialized");
     	counters = new int[4];
     	attackRatio = new double[3];
     	numberGenerator = new Random();

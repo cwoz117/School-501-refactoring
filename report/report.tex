@@ -1,0 +1,82 @@
+\documentclass{article}
+\usepackage{amsthm}
+
+\title{501 A1. Refactoring, and Source Control}
+\author{Chris Wozniak}
+\date{\today}
+
+\newtheorem*{REM}{Remark}
+
+\begin{document}
+	\maketitle
+
+	\section*{Why refactor?}
+	The reason for refactoring this assignment, the CPSC233 Assignment 1, was for a few reasons.
+	\begin{description}
+		\item[1] Old Code \\
+			This was the first assignment done in java, and as such it was not up to par with what I'm capable of writing today.
+		\item[2] No ``meta-work" \\
+			By metawork, I'm referring to unit testing, source control, in-line or method level comments. The assignment
+			was built and had proper output so it was considered complete.
+	\end{description}
+
+	\section*{What was refactored?}
+		The commit log shows versions from the top down, but I will have to start from the initial commit, follow 
+		along to determine which version matches the code provided.
+	
+		\begin{description}
+			\item 1.0 Initial commit/bug fix\hfill \\
+				This was my initial commit of the origional assignment. There were some memory leaks and a few
+				other stylistic things I had to change just to get myself prepared for the refactoriings.
+			\item 1.2 Merging similar classes \hfill \\
+				Here we had two classes: Attacker, and Defender which both had similar functionality, but with different names.
+				Creating a new class called "Fighter" it had all of the properties of both attacker, and fighter. This would
+				make it that much easeier to work with the two objects, since they were both fighters, one merely in an
+				attacking state, the other in a defending state.
+			\item 1.2.1 Merging methods \hfill \\
+				Once the classes were merged together, in fighter, the methods got streamlined. Turning "attack()" and 
+				"defend()" into "action()" since having both was a redundancy.
+			\item 1.3 New Simulation class \hfill \\
+				The driver for the class was performing multiple roles: setting up the objects, getting user input, running 
+				the simulation, and formatting the output. It made for an extremely long method that needed to be 
+				broken up. In order to organize the many methods that would need to be created, I created a new 
+				class called "Simulator" which took most of main's work, and organized them into appropiate methods.
+			\item 1.4 Exceptions \hfill \\
+				Now that the classes were defined, I created member Exceptions, to better organize the code. This
+				way, when/if an exception is thrown it will carry with it an appropiate name so that it would make
+				sense within the context of the code.
+			\item 1.5 Mistake \hfill \\
+				After making the commit, and working through the code, I realized that the program in its entirety
+				was basically self-automated. As such, once the methods were created there was no need to worry about
+				exceptions being thrown, so long as the objects were created properly. So The next refactor was reverting
+				what I did, then implementing unchecked exceptions so that the program would become much cleaner, and
+				easier to read without losing functionality.
+		\end{description}
+		\begin{REM}
+			Its important to note here that there is a branch in my log. This is because of a mistake in deleting my unit tests
+			instead of deleting my exceptions. As such, I had to create a new branch to save my new content, then checkout
+			the master branch, and do a hard revision backwards to reaquire my unit tests, then merge the two branches together.
+		\end{REM}
+		\begin{description}
+			\item 2.0 Clean release \hfill \\
+				After my unit tests were reconstructed, and tested good with the new exceptions, I made a final commit for a 
+				clean print for the assignment submission.
+		\end{description}
+	\section*{Well-defined example}
+		A well defined example for the refactorings used would have to be the major transition from a long method in "Manager.java"
+		to the class "Simulator.java" where the entire class can be used as an example, since it all came from the original main method.
+
+	\section*{Unit Testing}
+		Once again, the code as it was created did an okay job handling user input error, with some modifications 
+		brought in around 1.2-1.4 to avoid pitfalls (ie. using Scanner's nestInt() without checking for an int first) \\ \\
+		With that out of the way, the big trouble next were the unchecked exceptions which were implemented 
+		and tested in 1.4-1.5. They check for NullPointerException, and InvalidArgumentException after that.
+		The point of the code is to get the input from the user, then run a simulation out of the users hands, so if we
+		error check, and guaretee that the input is okay, the program will not have a problem running.
+	\section*{Positive or Negative gain?}
+		The codes solution was a minimal one being a CPSC233 project, and as such much of the limitations I ran
+		into turned out to be less of a refactoring problem, and instead had problems maintaining the exact same output
+		at the first iteration. This refactoring begs for more work to be done on the program, as its just too barebones 
+		to refactor any further until more substance is applied to the program itself.
+
+\end{document}
