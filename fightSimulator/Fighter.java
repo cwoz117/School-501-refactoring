@@ -1,4 +1,4 @@
-package fighter;
+package fightSimulator;
 /* 
 Chris Wozniak
 10109820
@@ -13,12 +13,8 @@ List of methods.
  */
 
 
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
-
-import exceptions.AttackerInputException;
-import exceptions.AttackerRatioException;
 
 public class Fighter{
 
@@ -31,25 +27,28 @@ public class Fighter{
     private int[] counters;
     private Random numberGenerator;
     
-    public Fighter(double ratioOfHighAttack, double ratioOfMediumAttack, double ratioOfLowAttack) throws AttackerRatioException{
+    public Fighter(double ratioOfHighAttack, double ratioOfMediumAttack, double ratioOfLowAttack) {
+    	if ((ratioOfHighAttack + ratioOfMediumAttack + ratioOfLowAttack) > (double)100){
+    		throw new IllegalArgumentException("Your ratios are greater than 100%");
+    	}
+    	if ((ratioOfHighAttack < 0) || (ratioOfMediumAttack < 0) || (ratioOfLowAttack < 0)){
+    		throw new IllegalArgumentException("You have negative ratios");
+    	}
     	counters = new int[4];
     	attackRatio = new double[3];
     	attackRatio[HIGH] = ratioOfHighAttack;
     	attackRatio[MEDIUM] = ratioOfMediumAttack;
     	attackRatio[LOW] = ratioOfLowAttack;
     	numberGenerator = new Random();
-    	
-    	double totalRatio = attackRatio[MEDIUM] + attackRatio[MEDIUM] + attackRatio[LOW];
-    	if (totalRatio > (double)100){
-    		throw new AttackerRatioException("Your ratios are greater than 100%");
-    	}
     }
-    public Fighter(Scanner in) throws AttackerRatioException, AttackerInputException{
+    public Fighter(Scanner in){
+    	if(in == null) throw new IllegalArgumentException("Scanner is not initialized");
     	counters = new int[4];
     	attackRatio = new double[3];
     	numberGenerator = new Random();
-
-    	try{
+    	boolean valid = false;
+    	while(!valid){
+    		System.out.println("Building you're Fighter!\n");
     		System.out.println("Please enter the ratio of High Attacks: ");
     		attackRatio[HIGH]= in.nextDouble();
     	
@@ -58,13 +57,12 @@ public class Fighter{
 
     		System.out.println("Please enter the ratio of Low Attacks: ");
     		attackRatio[LOW]= in.nextDouble();
-    	} catch (InputMismatchException e){
-    		throw new AttackerInputException("You must enter a valid number");
-    	}
-    	
-    	double totalRatio = attackRatio[HIGH] + attackRatio[MEDIUM] + attackRatio[LOW];
-    	if (totalRatio > 100.00){
-    		throw new AttackerRatioException("Your ratios are greater than 100%");
+    		if (((attackRatio[HIGH] + attackRatio[MEDIUM] + attackRatio[LOW]) > (double)100) ||
+        			(attackRatio[LOW] < 0) || (attackRatio[MEDIUM] < 0) || (attackRatio[HIGH] < 0)){
+    			System.out.println("You're ratios are all wrong, please try again: \n");
+    		} else{
+    			valid = true;
+    		}
     	}
     }
 
