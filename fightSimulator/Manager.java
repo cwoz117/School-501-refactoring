@@ -25,8 +25,6 @@ Version 2. "Hemera"
 
 import java.util.Scanner;
 
-import exceptions.AttackerInputException;
-import exceptions.AttackerRatioException;
 
 public class Manager{
 
