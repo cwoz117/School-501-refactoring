@@ -1,3 +1,4 @@
+package fighter;
 import java.util.Scanner;
 
 public class Simulator {

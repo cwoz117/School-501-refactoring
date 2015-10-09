@@ -1,3 +1,4 @@
+package fighter;
 /* 
 Chris Wozniak
 10109820
