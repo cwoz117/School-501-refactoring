@@ -1,3 +1,4 @@
+package fightSimulator;
 /* 
 Chris Wozniak
 10109820
@@ -31,23 +32,15 @@ public class Manager{
 
     public static void main(String[] args){
     	
-    	try {
-    		Scanner in = new Scanner(System.in);
-    		Fighter attacker = new Fighter(in);
-    		Fighter defender = new Fighter(33.33, 33.33, 33.33);
-    		Simulator sim = new Simulator(attacker, defender);
+    	Scanner in = new Scanner(System.in);
+   		Fighter attacker = new Fighter(in);
+   		Fighter defender = new Fighter(33.33, 33.33, 33.33);
+   		Simulator sim = new Simulator(attacker, defender);
     		
-        	sim.determineRounds(in);
-        	sim.runSimulation();
-        	sim.stats();
+       	sim.determineRounds(in);
+       	sim.runSimulation();
+       	sim.stats();
         	
-        	in.close();
-    		
-    	} catch (AttackerRatioException e){
-    		e.printStackTrace();
-    	} catch (AttackerInputException e){
-    		e.printStackTrace();
-    	}
-
+       	in.close();
     }
 }
